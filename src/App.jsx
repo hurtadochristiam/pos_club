@@ -1,15 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useContext } from 'react'
 import './App.css'
+import Login from './views/Login'
+import {  Routes, Route } from 'react-router-dom'
+import {  authContext } from './context/AuthContext'
+import Home from './views/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+    const { user, loading } = useContext(authContext)
+    
   return (
-    <>
-      <h1>Hola Mundo</h1>
-    </>
+      loading
+        ? <h1>Cargando...</h1> 
+        :  <Routes>
+          {
+            user 
+              ? (<Route path="/" element={<Home/>}/>)
+              :(<Route path="/" element={<Login />} />)
+          }
+      </Routes>
   )
 }
 
