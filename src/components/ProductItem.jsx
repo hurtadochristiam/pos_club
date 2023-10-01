@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { updateOrAddProduct } from '../utils/updatePedido'
+import { currencyFormat } from '../utils/formats'
 
 const ProductItem = ({ product }) => {
   
@@ -47,17 +48,17 @@ const ProductItem = ({ product }) => {
                 {product.nombre}
               </h3>
               <p className="mt-1 text-sm text-gray-500">{product.descripción}</p>
-              <div class="flex flex-1 items-center justify-center mt-5">
-                <div class="">
-                  <div class="flex space-x-4">
-                    <span class="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleLess}>-</span>
+              <div className="flex flex-1 items-center justify-center mt-5">
+                <div className="">
+                  <div className="flex space-x-4">
+                    <span className="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleLess}>-</span>
                     <span className='p-2'>{cantidad}</span>
-                    <span class="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleAdd}>+</span>
+                    <span className="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleAdd}>+</span>
                   </div>
                 </div>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">{product.precio}</p>
+            <p className="text-sm font-medium text-gray-900">{currencyFormat(product.precio)}</p>
           </div>
         </div>
     
