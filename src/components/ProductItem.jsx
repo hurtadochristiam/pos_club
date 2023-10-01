@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { updateOrAddProduct } from '../utils/updatePedido'
+import { currencyFormat } from '../utils/formats'
 
 const ProductItem = ({ product }) => {
   
@@ -57,7 +58,7 @@ const ProductItem = ({ product }) => {
                 </div>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">{product.precio}</p>
+            <p className="text-sm font-medium text-gray-900">{currencyFormat(product.precio)}</p>
           </div>
         </div>
     

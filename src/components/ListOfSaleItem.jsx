@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { currencyFormat } from '../utils/formats'
 
 const ListOfSaleItem = ({ item }) => {
   return (
@@ -15,7 +16,7 @@ const ListOfSaleItem = ({ item }) => {
                     <h3>
                       <span>{i.nombre}</span>
                     </h3>
-                    <p className="ml-4">{i.cantidad * i.precio}</p>
+                    <p className="ml-4">{currencyFormat(i.cantidad * i.precio)}</p>
                   </div>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
