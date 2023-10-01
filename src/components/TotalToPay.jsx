@@ -1,13 +1,21 @@
 import { useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { calculateTotal } from "../utils/updatePedido"
+import { updateStock } from "../utils/getDataFireStore"
 
 const TotalToPay = () => {
-  const [formaDePago, setFormaDePago] = useState("")
-  const { pedido } = useAuth()
-  const handleCalculate = () => {
-    const totaltToPay = calculateTotal(pedido)
-    console.log({totaltToPay, formaDePago, pedido})
+  const [formaDePago, setFormaDePago] = useState("efectivo")
+  const { pedido, user } = useAuth()
+  const handleGenerateOrder = async (e) => {
+    e.preventDefault()
+    const total = calculateTotal(pedido)
+    let response =  await updateStock(pedido, formaDePago, user, total)
+    if(response.status){
+      alert(response.message)
+    }else{
+      console.log(response)
+      alert(response.error)
+    }
   }
   function handleChange(event) {
         const value = event.target.value;
@@ -32,7 +40,7 @@ const TotalToPay = () => {
             <input type="radio"  className="p-3 form-radio" name="formaDePago" value='efectivo' onChange={handleChange} checked/>
           </div>
           <div className="mt-6">
-            <button onClick={handleCalculate} className="flex items-center justify-center rounded-md border border-transparent bg-blueayuwn px-20 py-3 text-base font-medium text-white shadow-sm hover:bg-goldayuwn">Confirmar</button>
+            <button onClick={handleGenerateOrder} className="flex items-center justify-center rounded-md border border-transparent bg-blueayuwn px-20 py-3 text-base font-medium text-white shadow-sm hover:bg-goldayuwn">Pagar</button>
           </div>
         </form>
       </div>

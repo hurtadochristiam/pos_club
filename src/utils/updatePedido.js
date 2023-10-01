@@ -22,6 +22,6 @@ export function updateOrLessProduct (prev, product) {
 
 export function calculateTotal(pedidos) {
   
-  const total = pedidos?.reduce((total, item)=>{return parseInt(item.precio * item.cantidad)+parseInt(total)},0).toFixed(0)
+  const total = pedidos?.reduce((total, item)=>{return parseInt(item.price * item.cantidad)+parseInt(total)},0).toFixed(0)
   return '$ ' + total.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
