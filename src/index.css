@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-=======
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
->>>>>>> bd491ff0075eed5184f5b802f7c450a116f9ca98
