@@ -1,11 +1,18 @@
 import { useState } from "react"
 import { useAuth } from "../context/AuthContext"
-import { calculateTotal } from "../utils/updatePedido"
+import { calculateTotal,calculateShowTotal } from "../utils/updatePedido"
+import ModalOrder from "./ModalOrder"
 
 const TotalToPay = () => {
   const [formaDePago, setFormaDePago] = useState("")
   const { pedido } = useAuth()
-  const handleCalculate = () => {
+  const [open, setOpen] = useState(false)
+
+  function openModal () {
+    setOpen(!open)
+  }
+  const handleCalculate = (e) => {
+    e.preventDefault()
     const totaltToPay = calculateTotal(pedido)
     console.log({totaltToPay, formaDePago, pedido})
   }
@@ -18,7 +25,7 @@ const TotalToPay = () => {
     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
       <div className="flex justify-between text-2xl font-medium text-gray-900">
         <p className="mr-5">Total</p>
-        <p className="font-bold mx-5">{calculateTotal(pedido)}</p>
+        <p className="font-bold mx-5">{calculateShowTotal(pedido)}</p>
       </div>
       <div className="flex flex-row justify-end">
         <form className="flex flex-col items-end">
@@ -32,10 +39,11 @@ const TotalToPay = () => {
             <input type="radio"  className="p-3 form-radio" name="formaDePago" value='efectivo' onChange={handleChange} checked/>
           </div>
           <div className="mt-6">
-            <button onClick={handleCalculate} className="flex items-center justify-center rounded-md border border-transparent bg-blueayuwn px-20 py-3 text-base font-medium text-white shadow-sm hover:bg-goldayuwn">Confirmar</button>
+            <button onClick={openModal} className="flex items-center justify-center rounded-md border border-transparent bg-blueayuwn px-20 py-3 text-base font-medium text-white shadow-sm hover:bg-goldayuwn">Pagar</button>
           </div>
         </form>
       </div>
+    <ModalOrder openModal={openModal} open={open} />
     </div>
   )
 }

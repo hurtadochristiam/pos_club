@@ -17,6 +17,8 @@ export default {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
+      red: colors.red,
+      green: colors.green,
       'blueayuwn': '#1c4ebf',
       'goldayuwn': '#c09431'
     },
