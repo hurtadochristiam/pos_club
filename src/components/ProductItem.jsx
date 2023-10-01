@@ -36,8 +36,8 @@ const ProductItem = ({ product }) => {
         <div key={product.id} className="group relative">
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
             <img
-              src={product.imagen}
-              alt={product.nombre}
+              src={product.image}
+              alt={product.name}
               className="h-full w-full object-cover object-center lg:h-full lg:w-full"
             />
           </div>
@@ -45,9 +45,9 @@ const ProductItem = ({ product }) => {
             <div>
               <h3 className="text-sm text-gray-700">
                 <span aria-hidden="true" className="" />
-                {product.nombre}
+                {product.name}
               </h3>
-              <p className="mt-1 text-sm text-gray-500">{product.descripción}</p>
+              <p className="mt-1 text-sm text-gray-500">{product.description}</p>
               <div className="flex flex-1 items-center justify-center mt-5">
                 <div className="">
                   <div className="flex space-x-4">
@@ -58,7 +58,7 @@ const ProductItem = ({ product }) => {
                 </div>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">{currencyFormat(product.precio)}</p>
+            <p className="text-sm font-medium text-gray-900">{currencyFormat(product.price)}</p>
           </div>
         </div>
     

@@ -4,9 +4,12 @@ import {  useLayoutEffect } from "react"
 import { getProducts } from "../utils/getDataFireStore"
 
 const ProducstList = () => {
-  const { products } = useAuth()
+  const { products, setProducts } = useAuth()
   useLayoutEffect( () => {
-    getProducts()
+    getProducts().then(res => {
+      console.log('Aqui la respuesta ')
+      setProducts(res)
+    })
   } ,[])
   return (
     <div className="bg-white">
@@ -15,9 +18,12 @@ const ProducstList = () => {
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {
-            products.map(product => {
+            products.length > 0
+              ?products.map(product => {
                 return (<ProductItem key={product.id} product={product} />)
             })
+            :<p>Cargando productos...</p>
+            
           }
         </div>
       </div>

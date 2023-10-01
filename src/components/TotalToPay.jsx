@@ -2,19 +2,27 @@ import { useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { calculateTotal,calculateShowTotal } from "../utils/updatePedido"
 import ModalOrder from "./ModalOrder"
+import { updateStock } from "../utils/getDataFireStore"
 
 const TotalToPay = () => {
-  const [formaDePago, setFormaDePago] = useState("")
-  const { pedido } = useAuth()
+  const [formaDePago, setFormaDePago] = useState("efectivo")
+  const { pedido, user } = useAuth()
   const [open, setOpen] = useState(false)
 
   function openModal () {
     setOpen(!open)
   }
-  const handleCalculate = (e) => {
+  const handleGenerateOrder = async (ee) => {
     e.preventDefault()
-    const totaltToPay = calculateTotal(pedido)
-    console.log({totaltToPay, formaDePago, pedido})
+    e.preventDefault()
+    const total = calculateTotal(pedido)
+    let response =  await updateStock(pedido, formaDePago, user, total)
+    if(response.status){
+      alert(response.message)
+    }else{
+      console.log(response)
+      alert(response.error)
+    }
   }
   function handleChange(event) {
         const value = event.target.value;
