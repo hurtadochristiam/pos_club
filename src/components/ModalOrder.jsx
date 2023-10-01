@@ -2,14 +2,24 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { BanknotesIcon } from '@heroicons/react/24/outline'
 import ListOfSale from "../components/ListOfSale"
-import { calculateShowTotal } from "../utils/updatePedido"
+import { calculateTotal, calculateShowTotal } from "../utils/updatePedido"
 import { useAuth } from "../context/AuthContext"
 
 export default function ModalOrder({openModal,open}) {
 
   const { pedido } = useAuth()
-  function handleOrder() {
-    console.log('orden')
+
+  const handleGenerateOrder = async (e) => {
+    e.preventDefault()
+    const total = calculateTotal(pedido)
+    let response =  await updateStock(pedido, formaDePago, user, total)
+    if(response.status){
+      alert(response.message)
+      openModal()
+    }else{
+      console.log(response)
+      alert(response.error)
+    }
   }
 
   return (
@@ -67,7 +77,7 @@ export default function ModalOrder({openModal,open}) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-goldayuwn px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black sm:ml-3 sm:w-auto"
-                    onClick={() => handleOrder()}
+                    onClick={() => handleGenerateOrder()}
                   >
                     Finalizar
                   </button>

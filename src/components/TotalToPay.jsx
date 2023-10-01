@@ -12,18 +12,7 @@ const TotalToPay = () => {
   function openModal () {
     setOpen(!open)
   }
-  const handleGenerateOrder = async (ee) => {
-    e.preventDefault()
-    e.preventDefault()
-    const total = calculateTotal(pedido)
-    let response =  await updateStock(pedido, formaDePago, user, total)
-    if(response.status){
-      alert(response.message)
-    }else{
-      console.log(response)
-      alert(response.error)
-    }
-  }
+  
   function handleChange(event) {
         const value = event.target.value;
         setFormaDePago(value);
