@@ -15,15 +15,21 @@ const TotalToPay = () => {
     }
 
   return (
-    <div style={{ border: '1px solid #000000'}}>
-      <strong>Total: {calculateTotal(pedido)}</strong>
+    <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+      <div className="flex justify-between text-base font-medium text-gray-900">
+        <p>Total</p>
+        <p className="font-bold">{calculateTotal(pedido)}</p>
+      </div>
       <form>
-        <label htmlFor="tarjeta">Tarjeta</label>
-        <input type="radio" name="formaDePago" value='tarjeta' onChange={handleChange}/>
-        <label htmlFor="efectivo">Efectivo</label>
-        <input type="radio" name="formaDePago" value='efectivo' onChange={handleChange}/>
+        <p className='p-2 font-bold'>Método de Pago</p>
+        <label htmlFor="tarjeta" className="p-3">Tarjeta</label>
+        <input type="radio" className="p-3 form-radio" name="formaDePago" value='tarjeta' onChange={handleChange} />
+        <label htmlFor="efectivo" className="p-5">Efectivo</label>
+        <input type="radio"  className="p-3 form-radio" name="formaDePago" value='efectivo' onChange={handleChange} checked/>
+        <div className="mt-6">
+          <button onClick={handleCalculate} className="flex items-center justify-center rounded-md border border-transparent bg-blueayuwn px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-goldayuwn">Confirmar</button>
+        </div>
       </form>
-      <button onClick={handleCalculate}>Pagar</button>
     </div>
   )
 }
