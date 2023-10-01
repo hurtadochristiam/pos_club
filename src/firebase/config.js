@@ -19,7 +19,6 @@ const firebaseConfig = {
   measurementId: "G-2740B1V39W"
 };
 
-console.log(firebaseConfig)
 
 // Initialize Firebase
 export const appFire = initializeApp(firebaseConfig)
