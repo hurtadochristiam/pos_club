@@ -42,7 +42,7 @@ const ProductItem = ({ product }) => {
     }
   },[pedido])
   return (
-        <div key={product.id} className="group relative">
+        <div key={product.id} className="group relative flex justify-stretch flex-col">
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
             <img
               src={product.image}
@@ -51,23 +51,23 @@ const ProductItem = ({ product }) => {
             />
           </div>
           <div className="mt-4 flex justify-between">
-            <div>
-              <h3 className="text-sm text-gray-700">
+            <div className='basis-4/5 justify-between'>
+              <h3 className="text-base text-gray-700">
                 <span aria-hidden="true" className="" />
                 {product.name}
               </h3>
-              <p className="mt-1 text-sm text-gray-500">{product.description}</p>
-              <div className="flex flex-1 items-center justify-center mt-5">
-                <div className="">
-                  <div className="flex space-x-4">
-                    <span className="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleLess}>-</span>
-                    <span className='p-2'>{cantidad}</span>
-                    <span className="text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleAdd}>+</span>
-                  </div>
-                </div>
+              <p className="mt-1 text-xs text-gray-500">{product.description}</p>
+            </div>
+            <p className="text-sm font-medium text-gray-900 basis-1/5 text-right">{currencyFormat(product.price)}</p>
+          </div>
+          <div className="flex flex-1 justify-center items-end mt-5">
+            <div className="">
+              <div className="flex space-x-4">
+                <span className="cursor-default text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleLess}>-</span>
+                <span className='p-2'>{cantidad}</span>
+                <span className="cursor-default text-gray-600 bg-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-m font-medium" onClick={handleAdd}>+</span>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">{currencyFormat(product.price)}</p>
           </div>
         </div>
     
