@@ -19,6 +19,7 @@ export function AuthProvider ({ children }) {
   const [loading, setLoading] = useState(true)
   const [pedido, setPedido] = useState([])
   const [products, setProducts] = useState([])
+  const [productlist, setProductlist] = useState([])
 
   useEffect(() => {
     setLoading(true)

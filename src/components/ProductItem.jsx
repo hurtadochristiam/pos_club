@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { updateOrAddProduct } from '../utils/updatePedido'
 import { currencyFormat } from '../utils/formats'
@@ -7,7 +7,7 @@ import { currencyFormat } from '../utils/formats'
 const ProductItem = ({ product }) => {
   
   const [cantidad, setCantidad] = useState(0)
-  const { setPedido} = useAuth()
+  const { pedido,setPedido} = useAuth()
 
   const handleAdd = () => {
       setCantidad(prev=> prev + 1)
@@ -30,8 +30,17 @@ const ProductItem = ({ product }) => {
     }else{
       alert('No hay producto agregado')
     }
-}
 
+  }
+
+  useEffect(() => {
+    if (pedido.length == 0) {
+      setCantidad(0)
+      console.log('oli')
+    } else {
+      console.log('none')
+    }
+  },[pedido])
   return (
         <div key={product.id} className="group relative">
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">

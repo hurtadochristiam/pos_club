@@ -15,13 +15,13 @@ const ListOfSaleItem = ({ item }) => {
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
                       <span className='text-sm'>{i.cantidad} x </span>
-                      <span>{i.nombre}</span>
+                      <span>{i.name}</span>
                     </h3>
                     <p className="ml-4">{currencyFormat(i.cantidad * i.price)}</p>
                   </div>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
-                  <p className="text-gray-500">valor unitario: {currencyFormat(i.precio)} </p>
+                  <p className="text-gray-500">valor unitario: {currencyFormat(i.price)} </p>
                 </div>
               </div>
             </li>

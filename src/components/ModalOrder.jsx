@@ -1,24 +1,30 @@
-import { Fragment } from 'react'
+import { Fragment,useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { BanknotesIcon } from '@heroicons/react/24/outline'
 import ListOfSale from "../components/ListOfSale"
 import { calculateTotal, calculateShowTotal } from "../utils/updatePedido"
 import { useAuth } from "../context/AuthContext"
+import { updateStock } from "../utils/getDataFireStore"
 
-export default function ModalOrder({openModal,open}) {
+export default function ModalOrder({openModal,open,formaDePago}) {
 
-  const { pedido } = useAuth()
+  const { pedido, user, setPedido, products} = useAuth()
+  const [sending, setSending] = useState(false)
 
   const handleGenerateOrder = async (e) => {
     e.preventDefault()
+    setSending(true)
     const total = calculateTotal(pedido)
     let response =  await updateStock(pedido, formaDePago, user, total)
     if(response.status){
       alert(response.message)
       openModal()
+      setSending(false)
+      setPedido([])
     }else{
       console.log(response)
       alert(response.error)
+      setSending(false)
     }
   }
 
@@ -76,10 +82,11 @@ export default function ModalOrder({openModal,open}) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-goldayuwn px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black sm:ml-3 sm:w-auto"
-                    onClick={() => handleGenerateOrder()}
+                    className="inline-flex w-full justify-center rounded-md bg-goldayuwn px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black sm:ml-3 sm:w-auto disabled:bg-gray-400 disabled:text-gray-700"
+                    onClick={handleGenerateOrder}
+                    disabled={sending}
                   >
-                    Finalizar
+                    {sending ? "Enviando":"Finalizar"}
                   </button>
                   <button
                     type="button"
