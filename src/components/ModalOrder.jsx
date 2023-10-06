@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Fragment,useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { BanknotesIcon } from '@heroicons/react/24/outline'
@@ -6,9 +7,9 @@ import { calculateTotal, calculateShowTotal } from "../utils/updatePedido"
 import { useAuth } from "../context/AuthContext"
 import { updateStock } from "../utils/getDataFireStore"
 
-export default function ModalOrder({openModal,open,formaDePago}) {
+export default function ModalOrder({openModal,open,setOpen,formaDePago}) {
 
-  const { pedido, user, setPedido, products} = useAuth()
+  const { pedido, user, setPedido} = useAuth()
   const [sending, setSending] = useState(false)
 
   const handleGenerateOrder = async (e) => {
@@ -18,9 +19,10 @@ export default function ModalOrder({openModal,open,formaDePago}) {
     let response =  await updateStock(pedido, formaDePago, user, total)
     if(response.status){
       alert(response.message)
-      openModal()
+      // openModal()
       setSending(false)
       setPedido([])
+      setOpen(false)
     }else{
       console.log(response)
       alert(response.error)
@@ -30,7 +32,7 @@ export default function ModalOrder({openModal,open,formaDePago}) {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={openModal}>
+      <Dialog as="div" className="relative z-10" onClose={() => setOpen(!open)}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

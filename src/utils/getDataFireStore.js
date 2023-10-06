@@ -28,10 +28,11 @@ export async function updateStock(pedido, formaDePago, user, totalPaid) {
             const docRef = doc(db, "products", docu.id);
             const docSnap = await getDoc(docRef);
             const stockActual = docSnap.get("stock");
+            const cantidadVendida = docSnap.get("vendido");
             const stockNuevo = stockActual - el.cantidad;
-
+            const vendidoActual = cantidadVendida + el.cantidad
             if (stockNuevo >= 0) {
-                await batch.update(docRef, { stock: stockNuevo });
+                await batch.update(docRef, { stock: stockNuevo, vendido: vendidoActual });
             } else {
 
                 throw new Error(`No hay suficiente stock para ${el.name}`);

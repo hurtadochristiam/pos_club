@@ -15,7 +15,7 @@ function App() {
           {
             user 
               ? (<Route path="/" element={<Home/>}/>)
-              :(<Route path="/" element={<Login />} />)
+              :( <Route path="/" element={<Login />} />)
           }
       </Routes>
   )

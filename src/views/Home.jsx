@@ -1,10 +1,11 @@
-import ListOfSale from "../components/ListOfSale"
-import ProducstList from "../components/ProducstList"
-import TotalToPay from "../components/TotalToPay"
+import { useState } from "react"
+import SellingPorducts from "../components/SellingPorducts"
 import { useAuth } from "../context/AuthContext"
+import Stock from "./Stock"
 
 const Home = () => {
   const { user, logout } = useAuth()
+  const [showStock, setShowStock] = useState(false)
   const handleLogOut = async() => {
     await logout()
   }
@@ -35,20 +36,24 @@ const Home = () => {
                 </div>
               </div>
             </div>
+             <div onClick={() => setShowStock(false)} className="mx-2 text-white font-semibold cursor-pointer">
+              <span>Vender</span>
+            </div>
+            <div onClick={() => setShowStock(true)} className="mx-2 text-white font-semibold cursor-pointer">
+              <span>Stock</span>
+            </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <a href="#" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page" onClick={handleLogOut}>Salir</a>
             </div>
           </div>
         </div>
       </nav>
-      <ProducstList />   
-      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-        <div className="flex items-start justify-between">
-          <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">Pedido Actual</h2>
-        </div> 
-        <ListOfSale />
-      </div>
-      <TotalToPay />
+      {
+        showStock
+          ? <Stock />
+          : <SellingPorducts />
+      }
+      
     </div>
   )
 }

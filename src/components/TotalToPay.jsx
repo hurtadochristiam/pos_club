@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "../context/AuthContext"
-import { calculateTotal,calculateShowTotal } from "../utils/updatePedido"
+import { calculateShowTotal } from "../utils/updatePedido"
 import ModalOrder from "./ModalOrder"
 
 const TotalToPay = () => {
@@ -8,7 +8,8 @@ const TotalToPay = () => {
   const { pedido, user } = useAuth()
   const [open, setOpen] = useState(false)
 
-  function openModal () {
+  function openModal (e) {
+    e.preventDefault()
     if (pedido.length > 0) {
       setOpen(!open) 
     } else{
@@ -59,7 +60,7 @@ const TotalToPay = () => {
           </div>
         </form>
       </div>
-    <ModalOrder openModal={openModal} open={open} formaDePago={formaDePago} />
+    <ModalOrder openModal={openModal} open={open} setOpen={setOpen} formaDePago={formaDePago} />
     </div>
   )
 }
