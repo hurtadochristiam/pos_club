@@ -1,4 +1,4 @@
-import { collection, query, getDocs, doc, where, getDoc, writeBatch, serverTimestamp } from "firebase/firestore";
+import { collection, query, getDocs, doc, where, getDoc, writeBatch, serverTimestamp, orderBy } from "firebase/firestore";
 import { db } from "../firebase/config";
 
 
@@ -10,6 +10,16 @@ export async function getProducts() {
        products.push(doc.data())
     });
     return products
+
+}
+export async function getOrders() {
+    const orders = []
+    const q = query(collection(db, "orders"), orderBy('timestamp', 'desc'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+       orders.push(doc.data())
+    });
+    return orders
 
 }
 export async function updateStock(pedido, formaDePago, user, totalPaid) {

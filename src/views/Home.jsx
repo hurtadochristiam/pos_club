@@ -2,10 +2,11 @@ import { useState } from "react"
 import SellingPorducts from "../components/SellingPorducts"
 import { useAuth } from "../context/AuthContext"
 import Stock from "./Stock"
+import Ordenes from "./Ordenes"
 
 const Home = () => {
   const { user, logout } = useAuth()
-  const [showStock, setShowStock] = useState(false)
+  const [currentView, setCurrentView] = useState('home')
   const handleLogOut = async() => {
     await logout()
   }
@@ -36,11 +37,14 @@ const Home = () => {
                 </div>
               </div>
             </div>
-             <div onClick={() => setShowStock(false)} className="mx-2 text-white font-semibold cursor-pointer">
+             <div onClick={() => setCurrentView('home')} className="mx-2 text-white font-semibold cursor-pointer">
               <span>Vender</span>
             </div>
-            <div onClick={() => setShowStock(true)} className="mx-2 text-white font-semibold cursor-pointer">
+            <div onClick={() => setCurrentView('stock')} className="mx-2 text-white font-semibold cursor-pointer">
               <span>Stock</span>
+            </div>
+             <div onClick={() => setCurrentView('ordenes')} className="mx-2 text-white font-semibold cursor-pointer">
+              <span>Órdenes</span>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <a href="#" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page" onClick={handleLogOut}>Salir</a>
@@ -49,9 +53,14 @@ const Home = () => {
         </div>
       </nav>
       {
-        showStock
-          ? <Stock />
-          : <SellingPorducts />
+        currentView == 'home' 
+          ? <SellingPorducts />
+          :(
+            currentView === 'stock'
+              ? <Stock />
+              :<Ordenes />
+          ) 
+          
       }
       
     </div>
