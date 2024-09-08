@@ -15,7 +15,9 @@ export async function getProducts() {
 export async function getOrders() {
     const orders = []
     const q = query(collection(db, "orders"), orderBy('timestamp', 'desc'));
+    console.log(q);
     const querySnapshot = await getDocs(q);
+    console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
        orders.push(doc.data())
     });

@@ -24,12 +24,12 @@ const TotalToPay = () => {
 
   useEffect(() => {
     switch (user.email) {
-      case 'pos@pos.com':
+      case 'caja1@ayuwn.cl':
         setFormaDePago('tarjeta')
         break;
 
-      case 'caja1@pos.cl':
-        setFormaDePago('efectivo')
+      case 'caja3@ayuwn.cl':
+        setFormaDePago('tarjeta')
         break;
     
       default:

@@ -7,7 +7,7 @@ const ProducstList = () => {
   const { products, setProducts } = useAuth()
   useLayoutEffect( () => {
     getProducts().then(res => {
-      console.log('Aqui la respuesta ')
+      console.log(res)
       setProducts(res)
     })
   } ,[])
